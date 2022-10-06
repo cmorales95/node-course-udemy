@@ -9,31 +9,31 @@ const questions = [
     choices: [
       {
         value: 1,
-        name: '1. Create Task'
+        name: `${'1.'.green} Create Task`
       },
       {
         value: 2,
-        name: '2. Show all task'
+        name: `${'2.'.green} Show all task`
       },
       {
         value: 3,
-        name: '3. Show completed task'
+        name: `${'3.'.green} Show completed task`
       },
       {
         value: 4,
-        name: '4. Show pending task'
+        name: `${'4.'.green} Show pending task`
       },
       {
         value: 5,
-        name: '5. Complete task'
+        name: `${'5.'.green} Complete task`
       },
       {
         value: 5,
-        name: '5. Delete task'
+        name: `${'5.'.green} Delete task`
       },
       {
         value: 0,
-        name: '0. Exit'
+        name: `${'0.'.green} Exit`
       }
     ]
   }
@@ -64,7 +64,7 @@ export const pause = async () => {
   return exit;
 };
 
-export const readInpunt = async (message) => {
+export const readInput = async (message) => {
   console.clear();
   const question = [
     {
