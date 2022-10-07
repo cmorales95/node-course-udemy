@@ -28,7 +28,9 @@ export default class Tasks {
     const { description, finishedAt } = task;
     const status = finishedAt ? `${finishedAt}`.green : "Pending".grey;
 
-    console.log(`${id}. ${description} :: ${status}`);
+    console.log(
+      `${id}. ${description} :: ${status ? status.green : status.grey}`
+    );
   }
 
   printAll() {
@@ -44,5 +46,26 @@ export default class Tasks {
     }
 
     tasks.filter((task, i) => this.#formatPrintTask(task, i));
+  }
+
+  deleteTask(id = "") {
+    if (this.#list[id]) {
+      delete this.#list[id];
+    }
+  }
+
+  toggle(ids = []) {
+    ids.forEach((id) => {
+      const task = this.#list[id];
+      if (!task.finishedAt) {
+        task.finishedAt = new Date().toISOString();
+      }
+    });
+
+    this.all.forEach((task) => {
+      if (!ids.includes(task.code)) {
+        this.#list[task.code].finishedAt = null
+      }
+    });
   }
 }

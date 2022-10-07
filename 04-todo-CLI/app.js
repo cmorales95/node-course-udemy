@@ -1,6 +1,12 @@
-import "colors";
 import Tasks from "./models/tasks.js";
-import { inquirerMenu, pause, readInput } from "./helpers/inquirer.js";
+import {
+  inquirerMenu,
+  chooseTaskToDelete,
+  pause,
+  readInput,
+  confirm,
+  chooseTasksChecked,
+} from "./helpers/inquirer.js";
 import { readDB, saveDB } from "./helpers/saveFile.js";
 
 console.clear();
@@ -19,7 +25,6 @@ const main = async () => {
       case 1: // create task
         const description = await readInput("Description: ");
         tasks.newTask(description);
-        saveDB(tasks.all);
 
         break;
       case 2:
@@ -34,10 +39,32 @@ const main = async () => {
         tasks.filterDonePendingTasks(false);
 
         break;
+
+      case 5:
+        const ids = await chooseTasksChecked(tasks.all);
+        tasks.toggle(ids);
+        console.log('tasks have been updated')
+
+        break;
+      case 6:
+        const id = await chooseTaskToDelete(tasks.all);
+        if (id === 0) {
+          continue;
+        }
+
+        const ok = await confirm("Are you sure?");
+        if (ok) {
+          tasks.deleteTask(id);
+          console.log("Task has been deleted");
+        }
+
+        break;
     }
 
+    saveDB(tasks.all);
+
     await pause();
-  } while (opt !== 0);
+  } while (opt !== 7);
 };
 
 main();
