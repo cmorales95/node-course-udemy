@@ -150,5 +150,5 @@ dist
 # files
 *.txt
 
-# falsy database data
-/04-todo-CLI/db/*.json
+# all json are ignored, you can add exceptions
+*.json
