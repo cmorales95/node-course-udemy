@@ -1,22 +1,37 @@
-import express from 'express';
 import path from 'path';
+
+import express from 'express';
+import hbs from 'hbs';
 
 const __dirname = path.resolve();
 const app = express();
 const port = 8080;
 
+// Handlebars
+app.set('view engine', 'hbs');
+hbs.registerPartials(__dirname + '/views/partials', function (err) {});
+
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/index.html')
+  res.render('home', {
+    name: 'Cristian Morales',
+    title: 'Home'
+  })
 })
 
 app.get('/generic', (req, res) => {
-  res.sendFile(__dirname + '/public/generic.html')
+  res.render('generic', {
+    name: 'Cristian Morales',
+    title: 'Generics'
+  })
 })
 
 app.get('/elements', (req, res) => {
-  res.sendFile(__dirname + '/public/elements.html')
+  res.render('elements',{
+    name: 'Cristian Morales',
+    title: 'Elements'
+  })
 })
 
 app.listen(port, () => {
