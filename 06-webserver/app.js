@@ -1,11 +1,14 @@
 import path from 'path';
 
+import * as dotenv from 'dotenv';
 import express from 'express';
 import hbs from 'hbs';
 
+dotenv.config()
+
 const __dirname = path.resolve();
 const app = express();
-const port = 8080;
+const port = process.env.PORT;
 
 // Handlebars
 app.set('view engine', 'hbs');
